@@ -1,0 +1,61 @@
+
+
+<h1>学生検索</h1>
+
+<%= search_form_for @q do |f| %>
+  <%= f.label :name_cont, "学生の名前" %>
+  <%= f.search_field :name_cont %>
+
+  <%= f.label :sex_cont, "性別" %>
+  <%= f.search_field :sex_cont %>
+  <%= f.condition_fields do |c| %>
+      <%= c.attribute_fields do |a| %>
+        <%= a.attribute_select %>
+      <% end %>
+  <% end %>
+
+  <%= f.label :departments_id_eq, "#{ blank? }" %>
+  <%= f.collection_select :department_id_eq, @departments, :id, :name %>
+
+  <div class="actions">
+    <%= f.submit "検索" %>
+  </div>
+<% end %>
+
+<table>
+  <% @students.each do |student| %>
+    <tr>
+      <th><%= student.name %></th>
+      <td><%= student.sex %></td>
+      <td><%= student.age %></td>
+      <td><%= student.department.name %></td>
+    </tr>
+  <% end %>
+</table>
+
+
+<script>
+jQuery ->
+  $('#students').dataTable()
+</script>
+
+<!-- ここからDataTablesの動作検証 -->
+<h3>DataTablesを使ってみる</h3>
+<table id="students">
+  <thead>
+    <tr>
+      <th>Student Name</th>
+      <th>Student Sex</th>
+      <th>Student Age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= link_to(student.name, student)%></td>
+        <td><%= student.sex %></td>
+        <td><%= student.age %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
