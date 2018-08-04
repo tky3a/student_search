@@ -1,3 +1,3 @@
-jQuery ->
-  $('#students').dataTable()
-   sPaginationType: "numbers"
+# jQuery ->
+#   $('#students').dataTable()
+#    sPaginationType: "numbers"
