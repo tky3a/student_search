@@ -44,6 +44,10 @@ $(document).ready(function() {
         dom: 'Bfrtip',
         buttons: [
             {
+              extend: 'excel',
+              text: 'excelダウンロード'
+            },
+            {
                 extend: 'colvisGroup',
                 text: 'Office info',
                 show: [ 1, 2],
@@ -565,6 +569,14 @@ $(document).ready(function() {
         </tfoot>
     </table>
 
+
+    <h2>Import Students</h2>
+    <%= form_tag import_students_path, multipart: true do %>
+      <%= file_field_tag :file %>
+      <%= submit_tag "Import" %>
+    <% end %>
+
+    <%= link_to "生徒一覧ダウンロード", students_path(format: :xlsx), class: "btn btn-info" %>
 <!-- ここからDataTablesの動作検証 -->
 <h3>DataTablesを使ってみる</h3>
 <table id="students">

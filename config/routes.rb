@@ -3,5 +3,7 @@ Rails.application.routes.draw do
   get 'students/search'
   root to: 'students#index'
   get 'search', to: 'students#search'
-  resources :students
+  resources :students do
+    collection { post :import }
+  end
 end
