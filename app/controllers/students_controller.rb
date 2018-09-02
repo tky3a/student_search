@@ -24,7 +24,7 @@ class StudentsController < ApplicationController
   end
 
   def import
-    Student.import(params[:file])
+    Student.import(params[:file]) #アップロードファイルを渡す
     redirect_to root_url, notice: "Products imported."
   end
 
