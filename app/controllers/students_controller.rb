@@ -24,8 +24,17 @@ class StudentsController < ApplicationController
   end
 
   def import
-    Student.import(params[:file]) #アップロードファイルを渡す
-    redirect_to root_url, notice: "Products imported."
+    if params[:file].blank?
+      redirect_to root_path
+      flash[:alert] = "ファイルを選択してください"
+    else
+      Student.import(params[:file]) #アップロードファイルを渡す
+      redirect_to root_path, notice: "登録しました"
+    end
+  end
+
+  def show
+    @student = Student.find_by(id: params[:id])
   end
 
   private

@@ -5,21 +5,19 @@ class Student < ApplicationRecord
   def self.import(file)
     workbook = RubyXL::Parser.parse(file.path)
     worksheet = workbook[0] #初めのシートを読み込み
-    for cnt in 1..12
-      read_row = worksheet[cnt]
+    len = Student.all.length
+    i = 500
+    for cnt in 1..i
+      read_row = worksheet[cnt] #cntで１〜カウント
+      if worksheet.sheet_data.rows[cnt] == nil
+        break
+      end
       target_key = Student.where(name: read_row[0].value).first
       unless target_key.nil?
       target_key.age = read_row[2].value
       end
-      # binding.pry
       target_key.save!
     end
-    # (0..2).each do |i|
-    #   # binding.pry
-    #   cell_value = worksheet[0][i].value
-    # p cell_value
-    # binding.pry
-  # end
   end
 
   def self.to_xlsx(students) #引数にテーブルを受け渡す

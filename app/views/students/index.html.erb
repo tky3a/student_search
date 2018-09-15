@@ -1,4 +1,10 @@
-
+<style media="screen">
+td.highlight {
+      font-weight: bold;
+      color: gray;
+      background-color: gray;
+  }
+</style>
 
 <h1>学生検索</h1>
 
@@ -64,9 +70,27 @@ $(document).ready(function() {
                 text: 'Show all',
                 show: ':hidden'
             }
-        ]
+        ],
+        // dataTablesの色を特定条件で変更(CSSと組み合わせ)
+        "createdRow": function ( row, data, index ) {
+            if ( data[5].replace(/[\$,]/g, '') * 1 > 150000 ) {
+                $('td', row).eq(5).addClass('highlight');
+                $('td', row).eq(4).addClass('highlight')
+            }
+        }
+
     } );
 } );
+
+// $(document).ready(function() {
+//     $('#example').DataTable( {
+//         "createdRow": function ( row, data, index ) {
+//             if ( data[5].replace(/[\$,]/g, '') * 1 > 150000 ) {
+//                 $('td', row).eq(5).addClass('highlight');
+//             }
+//         },
+//     } );
+// } );
 
 $(document).ready(function() {
     $('#students').DataTable( {
@@ -569,12 +593,14 @@ $(document).ready(function() {
         </tfoot>
     </table>
 
+    <%= alert %>
 
     <h2>Import Students</h2>
     <%= form_tag import_students_path, multipart: true do %>
       <%= file_field_tag :file %>
       <%= submit_tag "Import" %>
     <% end %>
+
 
     <%= link_to "生徒一覧ダウンロード", students_path(format: :xlsx), class: "btn btn-info" %>
 <!-- ここからDataTablesの動作検証 -->
