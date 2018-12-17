@@ -7,17 +7,25 @@ class Student < ApplicationRecord
     worksheet = workbook[0] #初めのシートを読み込み
     len = Student.all.length
     i = 500
+
+    #ループ開始
     for cnt in 1..i
       read_row = worksheet[cnt] #cntで１〜カウント
-      if worksheet.sheet_data.rows[cnt] == nil
+      if worksheet.sheet_data.rows[cnt] == nil #値がnilのtrを通る場合にbreak
         break
       end
-      target_key = Student.where(name: read_row[0].value).first
-      unless target_key.nil?
-      target_key.age = read_row[2].value
-      end
+      target_key = Student.where(name: read_row[0].value).first #保存ターゲットのパラメーター取得
+        unless target_key.nil?
+          binding.pry
+          if read_row[2] == nil #読み込みデータが空の場合
+            return "#{cnt}行目エラー"
+          end
+          target_key.age = read_row[2].value
+        end
       target_key.save!
     end
+    return
+    #ループ停止
   end
 
   def self.to_xlsx(students) #引数にテーブルを受け渡す

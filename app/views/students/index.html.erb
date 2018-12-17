@@ -593,14 +593,17 @@ $(document).ready(function() {
         </tfoot>
     </table>
 
-    <%= alert %>
-
     <h2>Import Students</h2>
+
+    <div class="alert-nav">
+      <p class="notice alert-success"><%= notice %></p>
+      <p class="alert-danger"><%= alert %></p>
+    </div>
+
     <%= form_tag import_students_path, multipart: true do %>
       <%= file_field_tag :file %>
       <%= submit_tag "Import" %>
     <% end %>
-
 
     <%= link_to "生徒一覧ダウンロード", students_path(format: :xlsx), class: "btn btn-info" %>
 <!-- ここからDataTablesの動作検証 -->

@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.4.0'
 
+gem 'rspec-rails'
+
 gem 'rubyXL'
 gem 'pry-byebug'
 gem 'bootstrap'
@@ -10,6 +12,8 @@ gem 'bootstrap'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+#JSON
+gem 'jbuilder', '~> 2.5'
 
 gem 'ransack'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
